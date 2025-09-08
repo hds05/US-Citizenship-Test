@@ -46,6 +46,9 @@ export default function ConversationBot({ onTestComplete, onTestEnd }: Conversat
 
   // Initialize questions on component mount
   useEffect(() => {
+    // Scroll to top when component mounts
+    window.scrollTo(0, 0);
+    
     // Properly shuffle and select random questions using Fisher-Yates algorithm
     const shuffled = [...questionsData];
     for (let i = shuffled.length - 1; i > 0; i--) {

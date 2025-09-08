@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ConversationBot from './ConversationBot';
 import Header from './Header';
 
@@ -8,6 +8,11 @@ export default function HomePage() {
   const [showTest, setShowTest] = useState(false);
   const [showInstructions, setShowInstructions] = useState(false);
   const [testResults, setTestResults] = useState<{ score: number; total: number } | null>(null);
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleStartTest = () => {
     setShowInstructions(true);
@@ -17,6 +22,8 @@ export default function HomePage() {
   const handleStartActualTest = () => {
     setShowInstructions(false);
     setShowTest(true);
+    // Scroll to top when starting the test
+    window.scrollTo(0, 0);
   };
 
   const handleTestComplete = (score: number, totalQuestions: number) => {
@@ -26,6 +33,8 @@ export default function HomePage() {
   const handleTestEnd = () => {
     setShowTest(false);
     setTestResults(null);
+    // Scroll to top when returning to home
+    window.scrollTo(0, 0);
   };
 
   if (showTest) {
@@ -128,7 +137,10 @@ export default function HomePage() {
             {/* Action Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mt-8 sm:mt-12 relative z-10">
               <button
-                onClick={() => setShowInstructions(false)}
+                onClick={() => {
+                  setShowInstructions(false);
+                  window.scrollTo(0, 0);
+                }}
                 className="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 text-sm sm:text-base"
               >
                 Back to Home
@@ -241,7 +253,7 @@ export default function HomePage() {
               onClick={handleStartTest}
               className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold py-6 px-16 rounded-2xl text-2xl transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-3xl group-hover:shadow-blue-500/25"
             >
-              <span className="flex items-center gap-3">
+              <span className="flex items-center gap-3" onClick={()=>{window.scrollTo(0, 0);}}>
                 <span className="text-3xl">🚀</span>
                 Begin Practice 
                 <span className="text-3xl">🎯</span>
